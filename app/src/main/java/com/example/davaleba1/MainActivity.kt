@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -24,12 +25,23 @@ class MainActivity : AppCompatActivity() {
             val messageText = message.text.toString()
             val intent = Intent(this, MainActivity2::class.java)
 
-            intent.putExtra("email", emailText)
-            intent.putExtra("message", messageText)
+            val messageIsValid = messageText.isNotEmpty() && emailText.length < 250
+            val emailIsValid = emailText.isNotEmpty() && emailText.contains('@')
 
 
-            startActivity(intent)
+            if (messageIsValid and emailIsValid){
+                intent.putExtra("email", emailText)
+                intent.putExtra("message", messageText)
+
+                startActivity(intent)
+            }else if(!messageIsValid and !emailIsValid){
+                Toast.makeText(this, "FILL OUT FORMS CORRECTLY", Toast.LENGTH_SHORT).show()
+            }
+            else if(!messageIsValid and emailIsValid){
+            Toast.makeText(this, "Message is not valid", Toast.LENGTH_SHORT).show()
+            }else{
+                Toast.makeText(this, "Email is not valid", Toast.LENGTH_SHORT).show()
+            }
         }
-
     }
 }
