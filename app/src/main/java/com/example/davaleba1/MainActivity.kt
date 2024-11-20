@@ -42,6 +42,6 @@ class MainActivity : AppCompatActivity() {
             }else{
                 Toast.makeText(this, "Email is not valid", Toast.LENGTH_SHORT).show()
             }
-        }
+        }``
     }
 }
